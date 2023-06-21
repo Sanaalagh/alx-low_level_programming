@@ -1,18 +1,23 @@
 #include "main.h"
 /**
-  * print_alphabet - Make the alphabet
-  *
-  * Return: void
-  */
-void print_alphabet(void)
+ * main - Entry point
+ * Return: Always 1 (Success)
+ */
+void print_alphabet_x10(void)
 {
-    char letter = 'a';
+	int i;
+	char letter;
 
-    while (letter <= 'z')
-    {
-        _putchar(letter);
-        letter++;
-    }
+	for (i = 0; i < 10; i++)
+	{
+		letter = 'a';
 
-    _putchar('\n');
+		while (letter <= 'z')
+		{
+			_putchar(letter);
+			letter++;
+		}
+	}
+
+	_putchar('\n');
 }
