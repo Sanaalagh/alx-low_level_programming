@@ -1,29 +1,47 @@
 #include <stdio.h>
+
+/**
+ * print_buffer - Print the entire buffer w/ certain conditions
+ * @b: The buffer to print
+ * @size: The size of the buffer
+ */
 void print_buffer(char *b, int size)
 {
-    int i, j;
-    if (size <= 0) {
-        printf("\n");
-        return;
-    }
-    for (i = 0; i < size; i += 10) {
-        printf("%08x: ", i);
-        for (j = i; j < i + 10; j++) {
-            if (j < size)
-                printf("%02x", (unsigned char)b[j]);
-            else
-                printf("  ");
-            if (j % 2 != 0)
-                printf(" ");
-        }
-        for (j = i; j < i + 10; j++) {
-            if (j >= size)
-                break;
-            if (b[j] >= 32 && b[j] <= 126)
-                printf("%c", b[j]);
-            else
-                printf(".");
-        }
-        printf("\n");
-    }
+	int i, j;
+
+	i = 0;
+	if (size <= 0)
+		putchar('\n');
+	else
+	{
+		while (i < size)
+		{
+			printf("%08x: ", i);
+			j = 0;
+			while (j < 10)
+			{
+				if (j % 2 == 0 && j > 0)
+					printf(" ");
+				if (j + i > size - 1)
+					printf("  ");
+				else
+					printf("%.2x", b[j + i]);
+				j++;
+			}
+			putchar(' ');
+			j = 0;
+			while (j < 10)
+			{
+				if (j + i > size - 1)
+					break;
+				if (b[j + i] >= ' ' && b[j + i] <= '~')
+					putchar(b[j + i]);
+				else
+					putchar('.');
+				j++;
+			}
+			putchar('\n');
+			i += 10;
+		}
+	}
 }
