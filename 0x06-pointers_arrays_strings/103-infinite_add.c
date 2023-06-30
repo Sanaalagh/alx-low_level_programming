@@ -1,45 +1,59 @@
+#include "main.h"
 #include <stdio.h>
-
-int int_len(char *s)
-{
-    int len = 0;
-    while (s[len])
-        len++;
-    return len;
-}
-
+/**
+ * infinite_add - add 2 strings.
+ * @n1: string1.
+ * @n2: string2.
+ * @r: buffer
+ * @size_r: buffer size
+ * Return: String with all letters in ROT13 base.
+ */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-    int len1 = int_len(n1);
-    int len2 = int_len(n2);
-    int max_len = (len1 > len2) ? len1 : len2;
-    int carry = 0;
-    int sum;
-    int i, j;
-
-    if (max_len + 1 > size_r)
-        return 0;
-
-    r[max_len + 1] = '\0';
-    for (i = len1 - 1, j = len2 - 1; i >= 0 || j >= 0; i--, j--) {
-        sum = carry;
-        if (i >= 0)
-            sum += n1[i] - '0';
-        if (j >= 0)
-            sum += n2[j] - '0';
-
-        carry = sum / 10;
-        sum %= 10;
-        r[max_len--] = sum + '0';
-    }
-
-    if (carry)
-        r[max_len] = carry + '0';
-    else
-        max_len++;
-
-    for (i = 0; r[max_len]; i++, max_len++)
-        r[i] = r[max_len];
-
-    return r;
+	int a_len = 0, b_len = 0, carry = 0, a, b, sum, biggest;
+	
+	while (n1[a_len] != '\0')
+		a_len++;
+	while (n2[b_len] != '\0')
+		b_len++;
+	if (a_len > b_len)
+		biggest = a_len;
+	else
+		biggest = b_len;
+	if ((biggest + 1) >= size_r)
+		return (0);
+	r[biggest + 1] = '\0';
+	
+	while (biggest >= 0)
+	{
+		a = (n1[a_len - 1] - '0');
+		b = (n1[b_len - 1] - '0');
+		if (a_len > 0 && b_len > 0)
+			sum = a + b + carry;
+		else if (a_len < 0 && b_len > 0)
+			sum = b + carry;
+		else if (a_len > 0 && b_len < 0)
+			sum = a + carry;
+		else
+			sum = carry;
+		
+		if (sum > 9)
+		{
+			carry = sum / 10;
+			sum = (sum % 10) + '0';
+		}
+		else
+		{
+			carry = 0;
+			sum = sum + '0';
+		}
+		r[biggest] = sum;
+		a_len--;
+		b_len--;
+		biggest--;
+	}
+	if (*(r) != 0)
+		return (r);
+	else
+		return (r + 1);
 }
