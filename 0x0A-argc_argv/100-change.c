@@ -8,15 +8,14 @@ int main(int argc, char *argv[])
     if (argc != 2)
     {
         printf("Error\n");
-        return 1;
+        return (1);
     }
-
     amount = atoi(argv[1]);
 
     if (amount < 0)
     {
         printf("0\n");
-        return 0;
+        return (0);
     }
 
     while (amount > 0)
@@ -37,5 +36,5 @@ int main(int argc, char *argv[])
 
     printf("%d\n", coins);
 
-    return 0;
+    return (0);
 }
