@@ -10,8 +10,8 @@
 int number(char *str)
 {
 	int a, num = 0;
-	for (a = 0; str[a] != '\0'; a++)
-	{
+for (a = 0; str[a] != '\0'; a++)
+{
 		if (*str == ' ')
 			str++;
 		else
@@ -41,9 +41,9 @@ void free_everything(char **string, int i)
  */
 char **strtow(char *str)
 {
-	int total_words = 0, b = 0, c = 0, length = 0;
-	char **words, *found_word;
-	if (str == 0 || *str == 0)
+int total_words = 0, b = 0, c = 0, length = 0;
+char **words, *found_word;
+if (str == 0 || *str == 0)
 	return (NULL);
 	total_words = number(str);
 	if (total_words == 0)
@@ -79,6 +79,5 @@ char **strtow(char *str)
 			b++;
 			c = 0;
 			length = 0;
-			str++;}}
-	return (words);
-}
+			str++; }}
+	return (words); }
