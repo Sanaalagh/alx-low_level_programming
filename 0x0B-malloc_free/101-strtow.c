@@ -2,45 +2,97 @@
 #include <stdlib.h>
 
 /**
- * argstostr - Concatenates all the arguments of a program.
- * @ac: The argument count.
- * @av: The argument vector.
- *
- * Return: A pointer to the concatenated string, or NULL on failure.
+ * mem_clear - Clears the memory of a string array.
+ * @s: The string array.
  */
-char *argstostr(int ac, char **av)
+void mem_clear(char **s)
 {
-	char *str;
-	int total_len = 0;
-	int i, j;
-	int k = 0;
+	int i;
 
-	if (ac == 0 || av == NULL)
-		return (NULL);
+	for (i = 0; s[i] != NULL; i++)
+		free(s[i]);
 
-	for (i = 0; i < ac; i++)
+	free(s);
+}
+
+/**
+ * word_count - Counts the number of words in a string.
+ * @str: The input string.
+ *
+ * Return: The number of words.
+ */
+int word_count(char *str)
+{
+	int count = 0;
+	int in_word = 0;
+	int i = 0;
+
+	while (str[i] != '\0')
 	{
-		for (j = 0; av[i][j] != '\0'; j++)
-			total_len++;
-		total_len++;
-	}
-
-	str = malloc((total_len + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-
-	for (i = 0; i < ac; i++)
-	{
-		for (j = 0; av[i][j] != '\0'; j++)
+		if (str[i] == ' ')
+			in_word = 0;
+		else if (in_word == 0)
 		{
-			str[k] = av[i][j];
-			k++;
+			in_word = 1;
+			count++;
 		}
-		str[k] = '\n';
-		k++;
+
+		i++;
 	}
 
-	str[k] = '\0';
+	return (count);
+}
 
-	return (str);
+/**
+ * strtow - Splits a string into words.
+ * @str: The input string.
+ *
+ * Return: A pointer to an array of words, or NULL on failure.
+ */
+char **strtow(char *str)
+{
+	char **words;
+	int num_words;
+	int word_start = 0;
+	int word_end;
+	int word_len;
+	int i, j;
+
+	if (str == NULL || *str == '\0')
+		return (NULL);
+
+	num_words = word_count(str);
+
+	words = malloc((num_words + 1) * sizeof(char *));
+	if (words == NULL)
+		return (NULL);
+
+	for (i = 0, j = 0; str[i] != '\0' && j < num_words; i++)
+	{
+		if (str[i] != ' ')
+		{
+			word_start = i;
+			word_end = i;
+			while (str[word_end] != ' ' && str[word_end] != '\0')
+				word_end++;
+
+			word_len = word_end - word_start;
+			words[j] = malloc((word_len + 1) * sizeof(char));
+			if (words[j] == NULL)
+			{
+				mem_clear(words);
+				return (NULL);
+			}
+
+			for (i = 0; i < word_len; i++)
+				words[j][i] = str[word_start++];
+
+			words[j][i] = '\0';
+			j++;
+		}
+	}
+
+	words[j] = NULL;
+
+	return (words);
 }
