@@ -28,7 +28,7 @@ int count_words(char *str)
 		}
 	}
 
-	return count;
+	return (count);
 }
 
 /**
@@ -45,13 +45,13 @@ char **strtow(char *str)
 	int word_start, word_end;
 
 	if (str == NULL || *str == '\0')
-		return NULL;
+		return (NULL);
 
 	num_words = count_words(str);
 
 	words = malloc((num_words + 1) * sizeof(char *));
 	if (words == NULL)
-		return NULL;
+		return (NULL);
 
 	i = 0;
 	j = 0;
@@ -74,7 +74,7 @@ char **strtow(char *str)
 			for (k = 0; k < j; k++)
 				free(words[k]);
 			free(words);
-			return NULL;
+			return (NULL);
 		}
 
 		/* Copy the characters of the current word */
@@ -87,5 +87,5 @@ char **strtow(char *str)
 
 	words[j] = NULL;
 
-	return words;
+	return (words);
 }
