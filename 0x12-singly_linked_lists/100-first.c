@@ -1,11 +1,10 @@
-#include "lists.h"
+#include <stdio.h>
 /**
- *   * reverse_listint - define function
- *     * @head: describe argument
- *       * Return: what does it return?
- *         */
-listint_t *reverse_listint(listint_t **head)
+ *   * b - prints from init by the loader before main
+ *     */
+void b(void) __attribute__ ((constructor));
+void b(void)
 {
-		head++;
-			return (0);
+		printf("You're beat! and yet, you must allow,\n");
+			printf("I bore my house upon my back!\n");
 }
